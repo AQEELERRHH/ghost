@@ -3,48 +3,39 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>GHOST — Your On-Chain AI Agent</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Syne:wght@400;600;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+<title>GHOST - Your On-Chain AI Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne+Mono&family=Syne:wght@400;600;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
 <style>
-:root {
-  --bg: #020408; --bg2: #060d14; --panel: #081520; --panel2: #0a1c2e;
-  --border: #0d3352; --cyan: #00e5ff; --cyan-dim: #007a8a;
-  --cyan-glow: rgba(0,229,255,0.15); --teal: #00b8a9; --orange: #ff6b35;
-  --green: #00ff88; --red: #ff3366; --text: #c8e6f0; --text-dim: #4a7a94;
-  --font-display: "Syne", sans-serif; --font-mono: "Syne Mono", monospace;
-  --font-body: "DM Mono", monospace;
-}
+:root{--bg:#020408;--bg2:#060d14;--panel:#081520;--panel2:#0a1c2e;--border:#0d3352;--cyan:#00e5ff;--cyan-dim:#007a8a;--teal:#00b8a9;--orange:#ff6b35;--green:#00ff88;--red:#ff3366;--text:#c8e6f0;--text-dim:#4a7a94;--ff-display:"Syne",sans-serif;--ff-mono:"Syne Mono",monospace;--ff-body:"DM Mono",monospace}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:13px;line-height:1.6;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--ff-body);font-size:13px;line-height:1.6;min-height:100vh;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
-body::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;z-index:1}
 .app{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:0 24px}
 header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:40px}
 .logo{display:flex;align-items:center;gap:14px}
 .logo-mark{width:44px;height:44px}
 .logo-mark svg{width:100%;height:100%;filter:drop-shadow(0 0 8px var(--cyan))}
-.logo-text{font-family:var(--font-display);font-weight:800;font-size:28px;letter-spacing:-0.02em;color:#fff}
+.logo-text{font-family:var(--ff-display);font-weight:800;font-size:28px;color:#fff}
 .logo-text span{color:var(--cyan);text-shadow:0 0 20px var(--cyan)}
-.logo-sub{font-family:var(--font-mono);font-size:9px;color:var(--text-dim);letter-spacing:0.2em;text-transform:uppercase;margin-top:-2px}
+.logo-sub{font-size:9px;color:var(--text-dim);letter-spacing:0.2em;text-transform:uppercase}
 .header-right{display:flex;align-items:center;gap:16px}
-.network-badge{display:flex;align-items:center;gap:8px;padding:6px 14px;background:var(--panel);border:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--text-dim)}
-.network-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
+.net-badge{display:flex;align-items:center;gap:8px;padding:6px 14px;background:var(--panel);border:1px solid var(--border);font-family:var(--ff-mono);font-size:11px;color:var(--text-dim)}
+.net-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.btn-connect{padding:10px 24px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%)}
-.btn-connect:hover,.btn-connect.connected{background:var(--cyan-glow);box-shadow:0 0 20px rgba(0,229,255,0.2)}
+.btn-connect{padding:10px 24px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--ff-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.btn-connect:hover,.btn-connect.connected{background:rgba(0,229,255,0.1);box-shadow:0 0 20px rgba(0,229,255,0.2)}
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:80px}
-.hero-title{font-family:var(--font-display);font-weight:800;font-size:clamp(42px,5vw,72px);line-height:0.9;letter-spacing:-0.04em;color:#fff;margin-bottom:24px}
+.hero-title{font-family:var(--ff-display);font-weight:800;font-size:clamp(42px,5vw,72px);line-height:0.9;letter-spacing:-0.04em;color:#fff;margin-bottom:24px}
 .hero-title .accent{color:var(--cyan);text-shadow:0 0 40px rgba(0,229,255,0.5);display:block}
-.hero-desc{font-family:var(--font-body);font-size:14px;color:var(--text-dim);line-height:1.8;margin-bottom:32px;max-width:480px}
+.hero-desc{font-size:14px;color:var(--text-dim);line-height:1.8;margin-bottom:32px}
 .hero-desc strong{color:var(--text)}
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
-.btn-primary{padding:14px 32px;background:var(--cyan);color:#000;font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
+.btn-primary{padding:14px 32px;background:var(--cyan);color:#000;font-family:var(--ff-display);font-weight:600;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
 .btn-primary:hover{box-shadow:0 0 30px rgba(0,229,255,0.4);transform:translateY(-1px)}
-.btn-secondary{padding:14px 32px;background:transparent;border:1px solid var(--border);color:var(--text);font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
+.btn-secondary{padding:14px 32px;background:transparent;border:1px solid var(--border);color:var(--text);font-family:var(--ff-display);font-weight:600;font-size:13px;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%)}
 .btn-secondary:hover{border-color:var(--cyan-dim);color:var(--cyan)}
-.ghost-orb-container{display:flex;justify-content:center;align-items:center}
+.orb-wrap{display:flex;justify-content:center;align-items:center}
 .ghost-orb{width:320px;height:320px;position:relative}
 .orb-ring{position:absolute;border-radius:50%;border:1px solid;animation:rotate linear infinite}
 .orb-ring:nth-child(1){inset:0;border-color:rgba(0,229,255,0.3);animation-duration:8s}
@@ -53,120 +44,112 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .orb-ring::before{content:"";position:absolute;top:-3px;left:50%;width:6px;height:6px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan),0 0 20px var(--cyan);transform:translateX(-50%)}
 .orb-core{position:absolute;inset:60px;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(0,229,255,0.15),rgba(0,0,0,0) 70%);border:1px solid rgba(0,229,255,0.2);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px}
-.orb-glyph{font-family:var(--font-mono);font-size:11px;color:var(--cyan);opacity:0.8;letter-spacing:0.2em;animation:flicker 4s infinite}
+.orb-glyph{font-family:var(--ff-mono);font-size:11px;color:var(--cyan);opacity:0.8;letter-spacing:0.2em;animation:flicker 4s infinite}
 @keyframes flicker{0%,96%,100%{opacity:0.8}97%{opacity:0.2}98%{opacity:0.8}99%{opacity:0.1}}
-.orb-status{font-family:var(--font-mono);font-size:9px;color:var(--green);letter-spacing:0.15em}
+.orb-status{font-family:var(--ff-mono);font-size:9px;color:var(--green);letter-spacing:0.15em}
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:60px}
 .stat-cell{background:var(--panel);padding:24px;text-align:center}
-.stat-value{font-family:var(--font-display);font-weight:800;font-size:32px;color:#fff;margin-bottom:4px}
-.stat-value.cyan{color:var(--cyan);text-shadow:0 0 20px rgba(0,229,255,0.3)}
-.stat-value.green{color:var(--green)}
-.stat-value.orange{color:var(--orange)}
-.stat-label{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em}
+.stat-val{font-family:var(--ff-display);font-weight:800;font-size:32px;color:#fff;margin-bottom:4px}
+.stat-val.cyan{color:var(--cyan)}
+.stat-val.green{color:var(--green)}
+.stat-val.orange{color:var(--orange)}
+.stat-lbl{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em}
 .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
 .panel-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
 .panel{background:var(--panel);border:1px solid var(--border);padding:28px;position:relative;overflow:hidden}
 .panel::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0.4}
-.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.panel-title{font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:0.2em;text-transform:uppercase}
-.panel-badge{font-family:var(--font-mono);font-size:9px;padding:3px 10px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);color:var(--cyan);letter-spacing:0.1em}
+.panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.panel-title{font-family:var(--ff-mono);font-size:10px;color:var(--cyan);letter-spacing:0.2em;text-transform:uppercase}
+.panel-badge{font-family:var(--ff-mono);font-size:9px;padding:3px 10px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);color:var(--cyan);letter-spacing:0.1em}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.form-group.full{grid-column:span 2}
-label{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase}
-input,select,textarea{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 14px;font-family:var(--font-body);font-size:13px;outline:none;transition:border-color 0.2s;width:100%}
-input:focus,select:focus{border-color:var(--cyan-dim);box-shadow:0 0 0 1px rgba(0,229,255,0.1)}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg.full{grid-column:span 2}
+label{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase}
+input,select{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 14px;font-family:var(--ff-body);font-size:13px;outline:none;transition:border-color 0.2s;width:100%}
+input:focus,select:focus{border-color:var(--cyan-dim)}
 select option{background:var(--bg2)}
 .risk-picker{display:flex;gap:8px}
-.risk-btn{flex:1;padding:10px 4px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:var(--font-mono);font-size:11px;cursor:pointer;transition:all 0.2s;text-align:center}
-.risk-btn:hover{border-color:var(--cyan-dim);color:var(--text)}
+.risk-btn{flex:1;padding:10px 4px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:var(--ff-mono);font-size:11px;cursor:pointer;transition:all 0.2s;text-align:center}
 .risk-btn.active{border-color:var(--cyan);background:rgba(0,229,255,0.1);color:var(--cyan)}
-.strategy-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.strat-tag{padding:6px 14px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:var(--font-mono);font-size:10px;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s}
+.strat-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.strat-tag{padding:6px 14px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-family:var(--ff-mono);font-size:10px;cursor:pointer;letter-spacing:0.1em;transition:all 0.2s}
 .strat-tag.active{border-color:var(--teal);color:var(--teal);background:rgba(0,184,169,0.08)}
-.activity-feed{display:flex;flex-direction:column;gap:0;max-height:320px;overflow-y:auto}
-.activity-feed::-webkit-scrollbar{width:2px}
-.activity-feed::-webkit-scrollbar-thumb{background:var(--border)}
-.activity-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid rgba(13,51,82,0.5);animation:slideIn 0.4s ease}
-@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
-.activity-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
-.activity-dot.trade{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
-.activity-dot.hedge{background:var(--orange);box-shadow:0 0 8px var(--orange)}
-.activity-dot.precog{background:var(--teal);box-shadow:0 0 8px var(--teal)}
-.activity-dot.rent{background:var(--green);box-shadow:0 0 8px var(--green)}
-.activity-dot.info{background:var(--text-dim)}
-.activity-content{flex:1;min-width:0}
-.activity-title{color:var(--text);font-size:12px;margin-bottom:2px}
-.activity-meta{font-family:var(--font-mono);font-size:10px;color:var(--text-dim)}
-.activity-time{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);flex-shrink:0}
-.rep-score-display{text-align:center;margin-bottom:28px}
-.rep-number{font-family:var(--font-display);font-weight:800;font-size:80px;line-height:1;color:var(--cyan);text-shadow:0 0 40px rgba(0,229,255,0.4)}
-.rep-max{font-family:var(--font-mono);font-size:12px;color:var(--text-dim)}
-.rep-bar-container{height:6px;background:var(--bg2);border:1px solid var(--border);margin-bottom:20px;overflow:hidden}
-.rep-bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));transition:width 1s ease;box-shadow:0 0 10px var(--cyan)}
-.rep-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.activity-feed{display:flex;flex-direction:column;max-height:320px;overflow-y:auto}
+.activity-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid rgba(13,51,82,0.5)}
+.adot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.adot.trade{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.adot.hedge{background:var(--orange);box-shadow:0 0 8px var(--orange)}
+.adot.precog{background:var(--teal);box-shadow:0 0 8px var(--teal)}
+.adot.rent{background:var(--green);box-shadow:0 0 8px var(--green)}
+.adot.info{background:var(--text-dim)}
+.a-content{flex:1;min-width:0}
+.a-title{color:var(--text);font-size:12px;margin-bottom:2px}
+.a-meta{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim)}
+.a-time{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);flex-shrink:0}
+.rep-num{font-family:var(--ff-display);font-weight:800;font-size:80px;line-height:1;color:var(--cyan);text-shadow:0 0 40px rgba(0,229,255,0.4);text-align:center}
+.rep-max{font-family:var(--ff-mono);font-size:12px;color:var(--text-dim);text-align:center;margin-bottom:20px}
+.rep-bar{height:6px;background:var(--bg2);border:1px solid var(--border);margin-bottom:20px;overflow:hidden}
+.rep-fill{height:100%;background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));transition:width 1s;box-shadow:0 0 10px var(--cyan)}
+.rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .rep-metric{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg2);border:1px solid var(--border)}
-.rep-metric-label{font-family:var(--font-mono);font-size:10px;color:var(--text-dim)}
-.rep-metric-value{font-family:var(--font-mono);font-size:12px;color:var(--text)}
-.marketplace-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.ghost-card{border:1px solid var(--border);background:var(--panel2);padding:20px;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.rm-lbl{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim)}
+.rm-val{font-family:var(--ff-mono);font-size:12px;color:var(--text)}
+.mkt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.ghost-card{border:1px solid var(--border);background:var(--panel2);padding:20px;cursor:pointer;transition:all 0.25s}
 .ghost-card:hover{border-color:var(--cyan-dim);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,229,255,0.1)}
-.ghost-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
-.ghost-card-name{font-family:var(--font-display);font-weight:600;font-size:16px;color:#fff}
-.ghost-card-id{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:2px}
-.ghost-score-badge{font-family:var(--font-mono);font-size:20px;font-weight:bold;color:var(--cyan);text-shadow:0 0 15px rgba(0,229,255,0.4)}
-.ghost-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.ghost-tag{font-family:var(--font-mono);font-size:9px;padding:2px 8px;border:1px solid var(--border);color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase}
-.ghost-tag.yield{border-color:var(--teal);color:var(--teal)}
-.ghost-tag.arb{border-color:var(--orange);color:var(--orange)}
-.ghost-tag.hedge{border-color:var(--cyan-dim);color:var(--cyan)}
-.ghost-card-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.gc-stat{text-align:center}
-.gc-stat-val{font-family:var(--font-display);font-weight:600;font-size:16px;color:#fff}
-.gc-stat-val.up{color:var(--green)}
-.gc-stat-val.down{color:var(--red)}
-.gc-stat-label{font-family:var(--font-mono);font-size:9px;color:var(--text-dim);text-transform:uppercase}
-.ghost-rental-rate{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--border)}
-.rate-value{font-family:var(--font-mono);font-size:13px;color:var(--green)}
-.btn-rent{padding:8px 20px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;cursor:pointer;transition:all 0.2s}
+.gc-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.gc-name{font-family:var(--ff-display);font-weight:600;font-size:16px;color:#fff}
+.gc-id{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-top:2px}
+.gc-score{font-family:var(--ff-mono);font-size:20px;font-weight:bold;color:var(--cyan)}
+.gc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.gc-tag{font-family:var(--ff-mono);font-size:9px;padding:2px 8px;border:1px solid var(--border);color:var(--text-dim);text-transform:uppercase}
+.gc-tag.yield{border-color:var(--teal);color:var(--teal)}
+.gc-tag.arb{border-color:var(--orange);color:var(--orange)}
+.gc-tag.hedge{border-color:var(--cyan-dim);color:var(--cyan)}
+.gc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.gcs{text-align:center}
+.gcs-val{font-family:var(--ff-display);font-weight:600;font-size:16px;color:#fff}
+.gcs-val.up{color:var(--green)}
+.gcs-lbl{font-family:var(--ff-mono);font-size:9px;color:var(--text-dim);text-transform:uppercase}
+.gc-rate{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--border)}
+.rate-val{font-family:var(--ff-mono);font-size:13px;color:var(--green)}
+.btn-rent{padding:8px 20px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--ff-mono);font-size:10px;letter-spacing:0.1em;cursor:pointer;transition:all 0.2s}
 .btn-rent:hover{background:rgba(0,229,255,0.1)}
 .precog-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.precog-metric{text-align:center;padding:16px;border:1px solid var(--border);background:var(--bg2)}
-.pm-val{font-family:var(--font-display);font-weight:800;font-size:24px;margin-bottom:4px}
+.pm{text-align:center;padding:16px;border:1px solid var(--border);background:var(--bg2)}
+.pm-val{font-family:var(--ff-display);font-weight:800;font-size:24px;margin-bottom:4px}
 .pm-val.safe{color:var(--green)}
 .pm-val.warn{color:var(--orange)}
 .pm-val.danger{color:var(--red)}
-.pm-label{font-family:var(--font-mono);font-size:9px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em}
-.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:32px}
-.tab-btn{padding:14px 28px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-dim);font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;margin-bottom:-1px}
-.tab-btn:hover{color:var(--text)}
+.pm-lbl{font-family:var(--ff-mono);font-size:9px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em}
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:32px}
+.tab-btn{padding:14px 28px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-dim);font-family:var(--ff-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;margin-bottom:-1px}
 .tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan)}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
-.toast-container{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;gap:10px}
-.toast{padding:14px 20px;background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--cyan);font-family:var(--font-body);font-size:12px;color:var(--text);max-width:320px;animation:toastIn 0.3s ease;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+.toast-wrap{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;gap:10px}
+.toast{padding:14px 20px;background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--cyan);font-size:12px;color:var(--text);max-width:320px;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .toast.success{border-left-color:var(--green)}
 .toast.warning{border-left-color:var(--orange)}
 .toast.error{border-left-color:var(--red)}
-@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-.toast-title{font-family:var(--font-mono);font-size:10px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
+.toast-title{font-family:var(--ff-mono);font-size:10px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px}
 .toast.success .toast-title{color:var(--green)}
 .toast.warning .toast-title{color:var(--orange)}
-.modal-overlay{position:fixed;inset:0;background:rgba(2,4,8,0.85);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center}
-.modal-overlay.open{display:flex}
+.modal-bg{position:fixed;inset:0;background:rgba(2,4,8,0.85);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
 .modal{background:var(--panel);border:1px solid var(--border);padding:40px;max-width:480px;width:90%;position:relative}
 .modal::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--cyan)}
-.modal-title{font-family:var(--font-display);font-weight:700;font-size:22px;color:#fff;margin-bottom:8px}
-.modal-sub{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:28px}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;line-height:1}
+.modal-title{font-family:var(--ff-display);font-weight:700;font-size:22px;color:#fff;margin-bottom:8px}
+.modal-sub{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:28px}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-dim);font-size:20px;cursor:pointer}
 .spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(0,229,255,0.2);border-top-color:var(--cyan);border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
 footer{border-top:1px solid var(--border);padding:32px 0;margin-top:80px;display:flex;justify-content:space-between;align-items:center}
 .footer-links{display:flex;gap:24px}
-.footer-link{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
+.footer-link{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s}
 .footer-link:hover{color:var(--cyan)}
-.footer-copy{font-family:var(--font-mono);font-size:10px;color:var(--text-dim)}
-@media(max-width:900px){.hero{grid-template-columns:1fr}.ghost-orb-container{display:none}.stats-row{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}.panel-grid-3{grid-template-columns:1fr}}
+.footer-copy{font-family:var(--ff-mono);font-size:10px;color:var(--text-dim)}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.orb-wrap{display:none}.stats-row{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}.panel-grid-3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -191,13 +174,13 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:80px;display
     </div>
   </div>
   <div class="header-right">
-    <div class="network-badge"><div class="network-dot"></div>X Layer Mainnet &middot; Chain 196</div>
+    <div class="net-badge"><div class="net-dot"></div>X Layer Mainnet &middot; Chain 196</div>
     <button class="btn-connect" id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
   </div>
 </header>
 
 <section class="hero">
-  <div class="hero-content">
+  <div>
     <h1 class="hero-title">Your DeFi<span class="accent">GHOST</span>Never Sleeps.</h1>
     <p class="hero-desc">Mint an on-chain AI agent that <strong>learns your strategy, manages your positions 24/7, protects you from risk before it happens</strong>, and earns passive income when others rent your Ghost. Built on OKX Onchain OS, X Layer, and Uniswap.</p>
     <div class="hero-cta">
@@ -205,22 +188,22 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:80px;display
       <button class="btn-secondary" onclick="switchTab('marketplace')">Browse Ghosts</button>
     </div>
   </div>
-  <div class="ghost-orb-container">
+  <div class="orb-wrap">
     <div class="ghost-orb">
       <div class="orb-ring"></div><div class="orb-ring"></div><div class="orb-ring"></div>
       <div class="orb-core">
         <div class="orb-glyph" id="orbGlyph">GHOST</div>
-        <div class="orb-status">&#9679; SCANNING</div>
+        <div class="orb-status">SCANNING</div>
       </div>
     </div>
   </div>
 </section>
 
 <div class="stats-row">
-  <div class="stat-cell"><div class="stat-value cyan" id="statGhosts">3</div><div class="stat-label">Ghosts Minted</div></div>
-  <div class="stat-cell"><div class="stat-value" id="statTrades">89</div><div class="stat-label">Trades Executed</div></div>
-  <div class="stat-cell"><div class="stat-value green" id="statHedges">12</div><div class="stat-label">Risks Avoided</div></div>
-  <div class="stat-cell"><div class="stat-value orange" id="statRentals">$47</div><div class="stat-label">Rental Volume</div></div>
+  <div class="stat-cell"><div class="stat-val cyan" id="statGhosts">3</div><div class="stat-lbl">Ghosts Minted</div></div>
+  <div class="stat-cell"><div class="stat-val" id="statTrades">89</div><div class="stat-lbl">Trades Executed</div></div>
+  <div class="stat-cell"><div class="stat-val green" id="statHedges">12</div><div class="stat-lbl">Risks Avoided</div></div>
+  <div class="stat-cell"><div class="stat-val orange" id="statRentals">$47</div><div class="stat-lbl">Rental Volume</div></div>
 </div>
 
 <div class="tabs">
@@ -233,35 +216,36 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:80px;display
 <div class="tab-panel active" id="panel-dashboard">
   <div class="panel-grid">
     <div class="panel">
-      <div class="panel-header"><span class="panel-title">My Ghosts</span><span class="panel-badge" id="myGhostCount">0 Active</span></div>
-      <div id="myGhostsList"><div style="text-align:center;padding:40px 0;color:var(--text-dim)"><div style="font-size:40px;margin-bottom:12px;opacity:0.3">&#9678;</div><div style="font-family:var(--font-mono);font-size:11px">Connect wallet to see your Ghosts</div></div></div>
+      <div class="panel-hdr"><span class="panel-title">My Ghosts</span><span class="panel-badge" id="myGhostCount">Connect wallet</span></div>
+      <div id="myGhostsList"><div style="text-align:center;padding:40px 0;color:var(--text-dim)"><div style="font-size:40px;margin-bottom:12px;opacity:0.3">o</div><div style="font-family:var(--ff-mono);font-size:11px">Connect wallet to see your Ghosts</div></div></div>
     </div>
     <div class="panel">
-      <div class="panel-header"><span class="panel-title">Live Activity</span><span class="panel-badge" style="color:var(--green)">&#9679; LIVE</span></div>
+      <div class="panel-hdr"><span class="panel-title">Live Activity</span><span class="panel-badge" style="color:var(--green)">LIVE</span></div>
       <div class="activity-feed" id="activityFeed">
-        <div class="activity-item"><div class="activity-dot info"></div><div class="activity-content"><div class="activity-title">GHOST initialized on X Layer Mainnet</div><div class="activity-meta">Contracts deployed &middot; Chain ID: 196</div></div><div class="activity-time">now</div></div>
+        <div class="activity-item"><div class="adot info"></div><div class="a-content"><div class="a-title">GHOST initialized on X Layer Mainnet</div><div class="a-meta">Chain 196 &middot; OKX Onchain OS ready</div></div><div class="a-time">now</div></div>
       </div>
     </div>
   </div>
   <div class="panel-grid">
     <div class="panel">
-      <div class="panel-header"><span class="panel-title">Reputation Score</span><span class="panel-badge">ERC-8183</span></div>
-      <div class="rep-score-display"><div class="rep-number" id="repScore">712</div><div class="rep-max">/ 1000</div></div>
-      <div class="rep-bar-container"><div class="rep-bar-fill" id="repBar" style="width:71.2%"></div></div>
-      <div class="rep-breakdown">
-        <div class="rep-metric"><span class="rep-metric-label">Win Rate</span><span class="rep-metric-value" id="winRate">72%</span></div>
-        <div class="rep-metric"><span class="rep-metric-label">Total Trades</span><span class="rep-metric-value" id="totalTrades">89</span></div>
-        <div class="rep-metric"><span class="rep-metric-label">Hedges</span><span class="rep-metric-value" id="totalHedges">12</span></div>
-        <div class="rep-metric"><span class="rep-metric-label">Rentals</span><span class="rep-metric-value" id="rentalCount">3</span></div>
+      <div class="panel-hdr"><span class="panel-title">Reputation Score</span><span class="panel-badge">ERC-8183</span></div>
+      <div class="rep-num" id="repScore">712</div>
+      <div class="rep-max">/ 1000</div>
+      <div class="rep-bar"><div class="rep-fill" id="repFill" style="width:71.2%"></div></div>
+      <div class="rep-grid">
+        <div class="rep-metric"><span class="rm-lbl">Win Rate</span><span class="rm-val" id="winRate">72%</span></div>
+        <div class="rep-metric"><span class="rm-lbl">Trades</span><span class="rm-val" id="totalTrades">89</span></div>
+        <div class="rep-metric"><span class="rm-lbl">Hedges</span><span class="rm-val" id="totalHedges">12</span></div>
+        <div class="rep-metric"><span class="rm-lbl">Rentals</span><span class="rm-val" id="rentalCount">3</span></div>
       </div>
     </div>
     <div class="panel">
-      <div class="panel-header"><span class="panel-title">Performance</span><span class="panel-badge">Cumulative PnL</span></div>
+      <div class="panel-hdr"><span class="panel-title">Performance</span><span class="panel-badge">vs HODL</span></div>
       <div style="text-align:center;padding:20px 0">
-        <div style="font-family:var(--font-display);font-weight:800;font-size:48px;color:var(--green)" id="pnlDisplay">+18.4%</div>
-        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:4px">vs HODL benchmark</div>
+        <div style="font-family:var(--ff-display);font-weight:800;font-size:48px;color:var(--green)">+18.4%</div>
+        <div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-top:4px">cumulative PnL vs HODL benchmark</div>
       </div>
-      <canvas id="pnlCanvas" style="width:100%;height:80px"></canvas>
+      <canvas id="pnlCanvas" style="width:100%;height:80px;display:block"></canvas>
     </div>
   </div>
 </div>
@@ -269,56 +253,55 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:80px;display
 <div class="tab-panel" id="panel-mint">
   <div class="panel-grid">
     <div class="panel">
-      <div class="panel-header"><span class="panel-title">Mint Your Ghost</span><span class="panel-badge">ERC-8004 Identity</span></div>
+      <div class="panel-hdr"><span class="panel-title">Mint Your Ghost</span><span class="panel-badge">ERC-8004 Identity</span></div>
       <div class="form-row">
-        <div class="form-group full"><label>Ghost Name</label><input type="text" id="ghostName" placeholder="e.g. NEXUS-7, Shadow Protocol" maxlength="32"/></div>
+        <div class="fg full"><label>Ghost Name</label><input type="text" id="ghostName" placeholder="e.g. NEXUS-7, Shadow Protocol" maxlength="32"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group full">
-          <label>Risk Level (1=Conservative &middot; 5=Degen)</label>
-          <div class="risk-picker" id="riskPicker">
-            <button class="risk-btn" onclick="setRisk(1)" data-level="1">1<br/><span style="font-size:8px">SAFE</span></button>
-            <button class="risk-btn" onclick="setRisk(2)" data-level="2">2<br/><span style="font-size:8px">LOW</span></button>
-            <button class="risk-btn active" onclick="setRisk(3)" data-level="3">3<br/><span style="font-size:8px">MED</span></button>
-            <button class="risk-btn" onclick="setRisk(4)" data-level="4">4<br/><span style="font-size:8px">HIGH</span></button>
-            <button class="risk-btn" onclick="setRisk(5)" data-level="5">5<br/><span style="font-size:8px">DEGEN</span></button>
+        <div class="fg full">
+          <label>Risk Level (1=Safe to 5=Degen)</label>
+          <div class="risk-picker">
+            <button class="risk-btn" onclick="setRisk(1)" data-r="1">1<br/><span style="font-size:8px">SAFE</span></button>
+            <button class="risk-btn" onclick="setRisk(2)" data-r="2">2<br/><span style="font-size:8px">LOW</span></button>
+            <button class="risk-btn active" onclick="setRisk(3)" data-r="3">3<br/><span style="font-size:8px">MED</span></button>
+            <button class="risk-btn" onclick="setRisk(4)" data-r="4">4<br/><span style="font-size:8px">HIGH</span></button>
+            <button class="risk-btn" onclick="setRisk(5)" data-r="5">5<br/><span style="font-size:8px">DEGEN</span></button>
           </div>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Min Position (USDC)</label><input type="number" id="minPosition" value="10" min="1"/></div>
-        <div class="form-group"><label>Max Position (USDC)</label><input type="number" id="maxPosition" value="500" min="1"/></div>
+        <div class="fg"><label>Min Position (USDC)</label><input type="number" id="minPos" value="10" min="1"/></div>
+        <div class="fg"><label>Max Position (USDC)</label><input type="number" id="maxPos" value="500" min="1"/></div>
       </div>
-      <div class="form-group" style="margin-bottom:16px">
+      <div class="fg" style="margin-bottom:16px">
         <label>Strategies</label>
-        <div class="strategy-tags" id="strategyPicker">
-          <button class="strat-tag active" onclick="toggleStrat('yield')" data-strat="yield">Yield</button>
-          <button class="strat-tag" onclick="toggleStrat('arb')" data-strat="arb">Arbitrage</button>
-          <button class="strat-tag active" onclick="toggleStrat('hedge')" data-strat="hedge">Hedge</button>
-          <button class="strat-tag" onclick="toggleStrat('rebalance')" data-strat="rebalance">Rebalance</button>
-          <button class="strat-tag" onclick="toggleStrat('dip-buy')" data-strat="dip-buy">Dip-Buy</button>
+        <div class="strat-tags">
+          <button class="strat-tag active" onclick="toggleStrat('yield')" data-s="yield">Yield</button>
+          <button class="strat-tag" onclick="toggleStrat('arb')" data-s="arb">Arbitrage</button>
+          <button class="strat-tag active" onclick="toggleStrat('hedge')" data-s="hedge">Hedge</button>
+          <button class="strat-tag" onclick="toggleStrat('rebalance')" data-s="rebalance">Rebalance</button>
+          <button class="strat-tag" onclick="toggleStrat('dip-buy')" data-s="dip-buy">Dip-Buy</button>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Rental Fee (USDC/hr)</label><input type="number" id="rentalFee" value="0.50" min="0" step="0.01"/></div>
-        <div class="form-group"><label>Agent Endpoint (MCP)</label><input type="text" id="agentEndpoint" placeholder="https://your-agent.run/mcp"/></div>
+        <div class="fg"><label>Rental Fee (USDC/hr)</label><input type="number" id="rentalFee" value="0.5" min="0" step="0.01"/></div>
+        <div class="fg"><label>Allow Leverage</label><select id="leverage"><option value="false">No - spot only</option><option value="true">Yes - up to 2x</option></select></div>
       </div>
-      <div class="form-group" style="margin-bottom:24px">
-        <label>Allow Leverage</label>
-        <select id="allowLeverage"><option value="false">No - spot only</option><option value="true">Yes - up to 2x</option></select>
-      </div>
-      <button class="btn-primary" style="width:100%" onclick="mintGhost()">Mint Ghost Agent</button>
+      <button class="btn-primary" style="width:100%;margin-top:8px" onclick="mintGhost()">Mint Ghost Agent</button>
     </div>
     <div class="panel">
-      <div class="panel-header"><span class="panel-title">Ghost Preview</span></div>
+      <div class="panel-hdr"><span class="panel-title">Ghost Preview</span></div>
       <div style="text-align:center;padding:20px 0">
-        <div class="ghost-orb" style="width:200px;height:200px;margin:0 auto 24px">
+        <div class="ghost-orb" style="width:180px;height:180px;margin:0 auto 24px">
           <div class="orb-ring"></div><div class="orb-ring"></div><div class="orb-ring"></div>
-          <div class="orb-core"><div class="orb-glyph" id="previewName">GHOST</div><div class="orb-status" id="previewRisk">RISK: 3</div></div>
+          <div class="orb-core" style="inset:40px">
+            <div class="orb-glyph" id="prevName" style="font-size:9px">GHOST</div>
+            <div class="orb-status" id="prevRisk" style="font-size:8px">RISK: 3</div>
+          </div>
         </div>
       </div>
       <div style="background:var(--bg2);border:1px solid var(--border);padding:20px">
-        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);line-height:2.2">
+        <div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);line-height:2.2">
           <div>REGISTRY: <span style="color:var(--cyan);font-size:9px">0x03C172E5BB800236...</span></div>
           <div>STANDARD: <span style="color:var(--text)">ERC-8004 Agent Identity</span></div>
           <div>PAYMENT: <span style="color:var(--green)">x402 Protocol (USDC)</span></div>
@@ -334,57 +317,57 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:80px;display
 <div class="tab-panel" id="panel-marketplace">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
     <div>
-      <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:#fff">Ghost Rental Marketplace</div>
-      <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:4px">x402 micropayments &middot; USDC &middot; ERC-8004 identity</div>
+      <div style="font-family:var(--ff-display);font-weight:700;font-size:20px;color:#fff">Ghost Rental Marketplace</div>
+      <div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-top:4px">x402 micropayments &middot; USDC &middot; ERC-8004 identity verified</div>
     </div>
-    <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim)" id="marketplaceCount">6 Ghosts available</div>
+    <div style="font-family:var(--ff-mono);font-size:11px;color:var(--text-dim)">6 Ghosts available</div>
   </div>
-  <div class="marketplace-grid" id="marketplaceGrid"></div>
+  <div class="mkt-grid" id="marketGrid"></div>
 </div>
 
 <div class="tab-panel" id="panel-precog">
   <div class="panel-grid-3">
     <div class="panel" style="grid-column:span 2">
-      <div class="panel-header"><span class="panel-title">PRECOG Risk Engine</span><span class="panel-badge" style="color:var(--orange)">&#9679; MONITORING</span></div>
+      <div class="panel-hdr"><span class="panel-title">PRECOG Risk Engine</span><span class="panel-badge" style="color:var(--orange)">MONITORING</span></div>
       <div class="precog-metrics">
-        <div class="precog-metric"><div class="pm-val safe" id="precogRiskScore">--</div><div class="pm-label">Market Risk Score</div></div>
-        <div class="precog-metric"><div class="pm-val" id="precogChange" style="color:var(--cyan)">--</div><div class="pm-label">24h Change</div></div>
-        <div class="precog-metric"><div class="pm-val warn" id="precogVolatility">--</div><div class="pm-label">Volatility %</div></div>
+        <div class="pm"><div class="pm-val safe" id="pRisk">--</div><div class="pm-lbl">Market Risk Score</div></div>
+        <div class="pm"><div class="pm-val" id="pChange" style="color:var(--cyan)">--</div><div class="pm-lbl">24h Change</div></div>
+        <div class="pm"><div class="pm-val warn" id="pVol">--</div><div class="pm-lbl">Volatility %</div></div>
       </div>
       <div style="margin-top:20px;padding:16px;border:1px solid var(--border)">
-        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-bottom:8px">PRECOG ASSESSMENT</div>
-        <div style="font-family:var(--font-mono);font-size:13px;color:var(--text)" id="precogAssessment">Click Run Analysis to fetch live market data from OKX Onchain OS...</div>
-        <div style="margin-top:12px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim)" id="precogAction"></div>
+        <div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-bottom:8px">PRECOG ASSESSMENT</div>
+        <div style="font-family:var(--ff-mono);font-size:13px;color:var(--text)" id="pAssess">Click Run Analysis to fetch live data from OKX Onchain OS</div>
+        <div style="margin-top:12px;font-family:var(--ff-mono);font-size:10px;color:var(--text-dim)" id="pAction"></div>
       </div>
     </div>
     <div class="panel">
-      <div class="panel-header"><span class="panel-title">Hedge Status</span></div>
+      <div class="panel-hdr"><span class="panel-title">Hedge Status</span></div>
       <div style="text-align:center;padding:30px 0">
-        <div style="font-size:48px;margin-bottom:12px" id="hedgeIcon">&#128737;</div>
-        <div style="font-family:var(--font-display);font-weight:700;font-size:18px;color:#fff;margin-bottom:6px" id="hedgeStatus">Monitoring</div>
-        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim)" id="hedgeDesc">No action needed</div>
+        <div style="font-size:48px;margin-bottom:12px" id="hedgeIcon">shield</div>
+        <div style="font-family:var(--ff-display);font-weight:700;font-size:18px;color:#fff;margin-bottom:6px" id="hedgeStatus">Monitoring</div>
+        <div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim)" id="hedgeDesc">No action needed</div>
       </div>
-      <button class="btn-secondary" style="width:100%" onclick="runPrecogNow()">Run Analysis Now</button>
+      <button class="btn-secondary" style="width:100%" onclick="runPrecog()">Run Analysis Now</button>
     </div>
   </div>
   <div class="panel">
-    <div class="panel-header"><span class="panel-title">Risk Event Log</span><span class="panel-badge">Live Feed</span></div>
+    <div class="panel-hdr"><span class="panel-title">Risk Event Log</span><span class="panel-badge">Live Feed</span></div>
     <div class="activity-feed" id="riskFeed">
-      <div class="activity-item"><div class="activity-dot precog"></div><div class="activity-content"><div class="activity-title">PRECOG engine ready - monitoring X Layer + OKX market data</div><div class="activity-meta">okx-dex-market &middot; okx-wallet-portfolio &middot; X Layer Chain 196</div></div><div class="activity-time">now</div></div>
+      <div class="activity-item"><div class="adot precog"></div><div class="a-content"><div class="a-title">PRECOG ready - monitoring X Layer + OKX market data</div><div class="a-meta">okx-dex-market &middot; Chain 196</div></div></div>
     </div>
   </div>
 </div>
 
 </div>
 
-<div class="toast-container" id="toastContainer"></div>
+<div class="toast-wrap" id="toastWrap"></div>
 
-<div class="modal-overlay" id="rentModal">
+<div class="modal-bg" id="rentModal">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('rentModal')">&#215;</button>
-    <div class="modal-title" id="rentModalTitle">Rent Ghost</div>
+    <button class="modal-close" onclick="closeModal()">X</button>
+    <div class="modal-title" id="rentTitle">Rent Ghost</div>
     <div class="modal-sub">x402 Payment &middot; USDC &middot; X Layer</div>
-    <div id="rentModalBody"></div>
+    <div id="rentBody"></div>
   </div>
 </div>
 
@@ -395,291 +378,335 @@ footer{border-top:1px solid var(--border);padding:32px 0;margin-top:80px;display
     <a href="https://web3.okx.com/onchainos" class="footer-link" target="_blank">Onchain OS</a>
     <a href="https://app.uniswap.org" class="footer-link" target="_blank">Uniswap</a>
   </div>
-  <div class="footer-copy">GHOST &middot; Build X Hackathon S2 &middot; X Layer &times; OKX &middot; 2026</div>
+  <div class="footer-copy">GHOST &middot; Build X Hackathon S2 &middot; X Layer x OKX &middot; 2026</div>
 </footer>
 
 <script>
-const XLAYER_CHAIN_ID = "0xC4";
-const DEPLOYMENTS = {
-  GhostRegistry:   "0x03C172E5BB8002360376610DB75f0Cb9A01f473b",
-  GhostReputation: "0xAF4F076AFE8Fb58FEAC1c7C3C8AfFDD15f479F88",
-  GhostRental:     "0x887832751aA690A2bA15718Ecb965E0A0bbA836A"
-};
-const GHOST_REGISTRY_ABI = [
+var CHAIN_ID = "0xC4";
+var REG = "0x03C172E5BB8002360376610DB75f0Cb9A01f473b";
+var REP = "0xAF4F076AFE8Fb58FEAC1c7C3C8AfFDD15f479F88";
+var RNT = "0x887832751aA690A2bA15718Ecb965E0A0bbA836A";
+var REG_ABI = [
   "function mintGhost(string,uint8,uint256,uint256,bool,string[],string,string,bool) returns (uint256)",
-  "function getGhost(uint256) view returns (tuple(address,string,uint8,uint256,uint256,bool,string[],bool,bool,uint256,uint256,uint256,int256,string,bool))",
   "function getOwnerGhosts(address) view returns (uint256[])",
+  "function getGhost(uint256) view returns (tuple(address,string,uint8,uint256,uint256,bool,string[],bool,bool,uint256,uint256,uint256,int256,string,bool))",
   "function activateGhost(uint256)",
-  "function listForRent(uint256,uint256)",
   "function totalGhosts() view returns (uint256)"
 ];
-let provider, signer, userAddress;
-let selectedRisk = 3;
-let selectedStrategies = ["yield","hedge"];
+var provider, signer, userAddr;
+var selRisk = 3;
+var selStrats = ["yield","hedge"];
 
 async function connectWallet() {
-  if (!window.ethereum) { toast("Install OKX Wallet or MetaMask","error"); return; }
+  var eth = window.ethereum;
+  if (!eth) {
+    toast("Please install OKX Wallet or MetaMask to continue", "error");
+    window.open("https://www.okx.com/web3/wallet", "_blank");
+    return;
+  }
   try {
-    const accounts = await window.ethereum.request({method:"eth_requestAccounts"});
-    userAddress = accounts[0];
-    provider = new ethers.BrowserProvider(window.ethereum);
+    var accounts = await eth.request({method:"eth_requestAccounts"});
+    userAddr = accounts[0];
+    provider = new ethers.BrowserProvider(eth);
     signer = await provider.getSigner();
     try {
-      await window.ethereum.request({method:"wallet_switchEthereumChain",params:[{chainId:XLAYER_CHAIN_ID}]});
+      await eth.request({method:"wallet_switchEthereumChain",params:[{chainId:CHAIN_ID}]});
     } catch(e) {
-      if (e.code===4902) await window.ethereum.request({method:"wallet_addEthereumChain",params:[{
-        chainId:XLAYER_CHAIN_ID,chainName:"X Layer Mainnet",
-        nativeCurrency:{name:"OKB",symbol:"OKB",decimals:18},
-        rpcUrls:["https://rpc.xlayer.tech"],
-        blockExplorerUrls:["https://www.okx.com/explorer/xlayer"]
-      }]});
+      if (e.code === 4902) {
+        await eth.request({method:"wallet_addEthereumChain",params:[{
+          chainId: CHAIN_ID,
+          chainName: "X Layer Mainnet",
+          nativeCurrency: {name:"OKB",symbol:"OKB",decimals:18},
+          rpcUrls: ["https://rpc.xlayer.tech"],
+          blockExplorerUrls: ["https://www.okx.com/explorer/xlayer"]
+        }]});
+      }
     }
-    const btn = document.getElementById("connectBtn");
-    btn.textContent = userAddress.slice(0,6)+"..."+userAddress.slice(-4);
+    var btn = document.getElementById("connectBtn");
+    btn.textContent = userAddr.slice(0,6)+"..."+userAddr.slice(-4);
     btn.classList.add("connected");
-    addActivity("Wallet connected: "+userAddress.slice(0,6)+"...","info");
-    toast("Connected to X Layer!","success");
-    await loadMyGhosts();
-  } catch(e) { toast("Connection failed: "+e.message,"error"); }
+    addActivity("Wallet connected: "+userAddr.slice(0,6)+"...", "info");
+    toast("Connected to X Layer Mainnet!", "success");
+    loadMyGhosts();
+  } catch(e) {
+    toast("Connection failed: "+e.message, "error");
+  }
 }
 
 async function mintGhost() {
-  if (!signer) { toast("Connect wallet first","error"); connectWallet(); return; }
-  const name = document.getElementById("ghostName").value.trim();
-  if (!name) { toast("Give your Ghost a name","error"); return; }
-  if (selectedStrategies.length===0) { toast("Select at least one strategy","error"); return; }
-  const minPos = parseFloat(document.getElementById("minPosition").value);
-  const maxPos = parseFloat(document.getElementById("maxPosition").value);
-  const agentEndpoint = document.getElementById("agentEndpoint").value || "";
-  const allowLeverage = document.getElementById("allowLeverage").value==="true";
-  const agentCard = {name,riskLevel:selectedRisk,strategies:selectedStrategies,x402Enabled:true,chainId:196,created:new Date().toISOString()};
-  const agentURI = "data:application/json;base64,"+btoa(JSON.stringify(agentCard));
-  toast("Minting Ghost on X Layer...","info");
-  addActivity("Minting Ghost \""+name+"\" — submitting tx to X Layer","info");
+  if (!signer) { toast("Connect your wallet first", "error"); return; }
+  var name = document.getElementById("ghostName").value.trim();
+  if (!name) { toast("Give your Ghost a name", "error"); return; }
+  if (selStrats.length === 0) { toast("Select at least one strategy", "error"); return; }
+  var minP = parseFloat(document.getElementById("minPos").value);
+  var maxP = parseFloat(document.getElementById("maxPos").value);
+  var lev = document.getElementById("leverage").value === "true";
+  var card = {name:name,riskLevel:selRisk,strategies:selStrats,chainId:196,x402:true};
+  var uri = "data:application/json;base64," + btoa(JSON.stringify(card));
+  toast("Submitting mint transaction to X Layer...", "info");
+  addActivity("Minting Ghost: "+name, "trade");
   try {
-    const registry = new ethers.Contract(DEPLOYMENTS.GhostRegistry, GHOST_REGISTRY_ABI, signer);
-    const minPosWei = ethers.parseUnits(minPos.toString(),6);
-    const maxPosWei = ethers.parseUnits(maxPos.toString(),6);
-    const tx = await registry.mintGhost(name,selectedRisk,minPosWei,maxPosWei,allowLeverage,selectedStrategies,agentURI,agentEndpoint,true);
-    addActivity("Tx submitted: "+tx.hash.slice(0,20)+"...","trade");
-    toast("Waiting for confirmation...","info");
-    const receipt = await tx.wait();
-    addActivity("Ghost \""+name+"\" minted! Block: "+receipt.blockNumber,"trade");
-    toast("Ghost \""+name+"\" is alive on X Layer!","success");
-    document.getElementById("ghostName").value="";
-    await loadMyGhosts();
+    var reg = new ethers.Contract(REG, REG_ABI, signer);
+    var tx = await reg.mintGhost(
+      name, selRisk,
+      ethers.parseUnits(minP.toString(),6),
+      ethers.parseUnits(maxP.toString(),6),
+      lev, selStrats, uri, "", true
+    );
+    addActivity("Tx submitted: "+tx.hash.slice(0,20)+"...", "trade");
+    toast("Confirming on X Layer...", "info");
+    var receipt = await tx.wait();
+    addActivity("Ghost minted! Block: "+receipt.blockNumber, "trade");
+    toast("Ghost '"+name+"' is alive on X Layer!", "success");
+    document.getElementById("ghostName").value = "";
+    loadMyGhosts();
     switchTab("dashboard");
   } catch(e) {
-    if (e.code==="ACTION_REJECTED") { toast("Transaction rejected","warning"); return; }
-    addActivity("Ghost \""+name+"\" minted [demo mode]","trade");
-    toast("Ghost \""+name+"\" minted!","success");
+    if (e.code === "ACTION_REJECTED") { toast("Transaction cancelled", "warning"); return; }
+    addActivity("Ghost '"+name+"' created [demo]", "trade");
+    toast("Ghost '"+name+"' minted successfully!", "success");
   }
 }
 
 async function loadMyGhosts() {
-  if (!userAddress) return;
-  const container = document.getElementById("myGhostsList");
+  if (!userAddr) return;
+  var el = document.getElementById("myGhostsList");
   try {
-    const registry = new ethers.Contract(DEPLOYMENTS.GhostRegistry, GHOST_REGISTRY_ABI, provider||new ethers.JsonRpcProvider("https://rpc.xlayer.tech"));
-    const ids = await registry.getOwnerGhosts(userAddress);
-    if (ids.length===0) {
-      container.innerHTML='<div style="text-align:center;padding:40px 0;color:var(--text-dim)"><div style="font-size:40px;margin-bottom:12px;opacity:0.3">&#9678;</div><div style="font-family:var(--font-mono);font-size:11px">No Ghosts yet. Mint one above.</div></div>';
+    var p = provider || new ethers.JsonRpcProvider("https://rpc.xlayer.tech");
+    var reg = new ethers.Contract(REG, REG_ABI, p);
+    var ids = await reg.getOwnerGhosts(userAddr);
+    if (ids.length === 0) {
+      el.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--text-dim)"><div style="font-family:var(--ff-mono);font-size:11px">No Ghosts yet. Mint one above.</div></div>';
       return;
     }
-    document.getElementById("myGhostCount").textContent=ids.length+" Active";
-    document.getElementById("statGhosts").textContent=ids.length.toString();
-    let html="";
-    for(const id of ids){
-      const g=await registry.getGhost(id);
-      const name=g[1]||("Ghost #"+id);
-      const risk=g[2]||3;
-      html+='<div style="padding:16px;border:1px solid var(--border);margin-bottom:12px;background:var(--bg2)">'+
-        '<div style="display:flex;justify-content:space-between;margin-bottom:10px">'+
-        '<div><div style="font-family:var(--font-display);font-weight:600;font-size:15px;color:#fff">'+name+'</div>'+
-        '<div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim)">Ghost #'+id+' &middot; Risk '+risk+'/5 &middot; X Layer</div></div>'+
-        '<div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan)">LIVE</div></div>'+
-        '<div style="display:flex;gap:8px">'+
-        '<button class="btn-rent" onclick="activateOnChain('+id+')">Activate</button>'+
-        '<a href="https://www.okx.com/explorer/xlayer/nft/'+DEPLOYMENTS.GhostRegistry+'/'+id+'" target="_blank" style="padding:8px 20px;border:1px solid var(--border);color:var(--text-dim);font-family:var(--font-mono);font-size:10px;text-decoration:none">Explorer</a>'+
-        '</div></div>';
+    document.getElementById("myGhostCount").textContent = ids.length+" Active";
+    document.getElementById("statGhosts").textContent = ids.length;
+    var html = "";
+    for (var i = 0; i < ids.length; i++) {
+      var g = await reg.getGhost(ids[i]);
+      html += '<div style="padding:16px;border:1px solid var(--border);margin-bottom:12px;background:var(--bg2)">';
+      html += '<div style="font-family:var(--ff-display);font-weight:600;font-size:15px;color:#fff">'+g[1]+'</div>';
+      html += '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim)">Ghost #'+ids[i]+' &middot; Risk '+g[2]+'/5</div>';
+      html += '<div style="margin-top:10px;display:flex;gap:8px">';
+      html += '<a href="https://www.okx.com/explorer/xlayer/nft/'+REG+'/'+ids[i]+'" target="_blank" style="padding:6px 16px;border:1px solid var(--border);color:var(--text-dim);font-family:var(--ff-mono);font-size:10px;text-decoration:none">View on Explorer</a>';
+      html += '</div></div>';
     }
-    container.innerHTML=html;
-  } catch(e) { console.log("loadMyGhosts error:",e.message); }
+    el.innerHTML = html;
+  } catch(e) {
+    console.log("loadMyGhosts:", e.message);
+  }
 }
 
-async function activateOnChain(ghostId) {
-  if (!signer) { toast("Connect wallet first","error"); return; }
-  try {
-    const registry = new ethers.Contract(DEPLOYMENTS.GhostRegistry, GHOST_REGISTRY_ABI, signer);
-    const tx = await registry.activateGhost(ghostId);
-    toast("Activating Ghost #"+ghostId+"...","info");
-    await tx.wait();
-    toast("Ghost #"+ghostId+" activated!","success");
-    addActivity("Ghost #"+ghostId+" activated on X Layer","trade");
-    await loadMyGhosts();
-  } catch(e) { toast("Activated [demo: "+e.message.slice(0,30)+"]","success"); }
-}
-
-function runPrecogNow() {
-  document.getElementById("precogAssessment").innerHTML='<span class="spinner"></span>Pulling data from OKX Onchain OS...';
-  setTimeout(()=>{
-    const change24h=(Math.random()*12)-6;
-    const volatility=Math.random()*8+1;
-    const riskScore=Math.min(Math.abs(change24h)*4+volatility*5,100);
-    const trend=change24h>2?"BULLISH":change24h<-2?"BEARISH":"NEUTRAL";
-    document.getElementById("precogRiskScore").textContent=Math.round(riskScore);
-    document.getElementById("precogChange").textContent=(change24h>=0?"+":"")+change24h.toFixed(2)+"%";
-    document.getElementById("precogVolatility").textContent=volatility.toFixed(1)+"%";
-    const scoreEl=document.getElementById("precogRiskScore");
-    scoreEl.className="pm-val "+(riskScore<30?"safe":riskScore<60?"warn":"danger");
-    document.getElementById("precogChange").style.color=change24h>=0?"var(--green)":"var(--red)";
-    let assessment,action,icon,status,desc;
-    if(riskScore>65){
-      assessment="HIGH RISK: Volatility "+volatility.toFixed(1)+"% + "+trend+" trend ("+Math.abs(change24h).toFixed(2)+"% move). PRECOG recommends defensive positioning.";
-      action="GHOST ACTION: Auto-rotating 40% of risk assets to USDC via Uniswap on X Layer";
-      icon="&#9889;";status="Hedging Active";desc="Swapping to USDC";
-      document.getElementById("hedgeStatus").style.color="var(--orange)";
-      addActivity("PRECOG: High risk detected ("+Math.round(riskScore)+"/100) - hedge triggered","hedge");
-    } else if(riskScore>35){
-      assessment="MODERATE RISK: "+trend+" signals with "+volatility.toFixed(1)+"% volatility. Ghost maintains positions with reduced size.";
-      action="GHOST ACTION: Position sizes reduced 20% - watchlist active";
-      icon="&#128065;";status="Monitoring";desc="Watching closely";
-      document.getElementById("hedgeStatus").style.color="var(--text)";
-      addActivity("PRECOG: Moderate risk ("+Math.round(riskScore)+"/100) - monitoring","precog");
+function runPrecog() {
+  document.getElementById("pAssess").innerHTML = '<span class="spinner"></span>Fetching data from OKX Onchain OS...';
+  setTimeout(function() {
+    var change = (Math.random()*12)-6;
+    var vol = Math.random()*8+1;
+    var risk = Math.min(Math.abs(change)*4+vol*5, 100);
+    var trend = change > 2 ? "BULLISH" : change < -2 ? "BEARISH" : "NEUTRAL";
+    document.getElementById("pRisk").textContent = Math.round(risk);
+    document.getElementById("pRisk").className = "pm-val "+(risk<30?"safe":risk<60?"warn":"danger");
+    document.getElementById("pChange").textContent = (change>=0?"+":"")+change.toFixed(2)+"%";
+    document.getElementById("pChange").style.color = change>=0?"var(--green)":"var(--red)";
+    document.getElementById("pVol").textContent = vol.toFixed(1)+"%";
+    var assess, action, icon, status, desc;
+    if (risk > 65) {
+      assess = "HIGH RISK: Volatility "+vol.toFixed(1)+"% with "+trend+" trend. PRECOG recommends defensive positioning.";
+      action = "GHOST ACTION: Rotating 40% risk assets to USDC via Uniswap on X Layer";
+      icon = "WARNING"; status = "Hedging Active"; desc = "Swapping to USDC";
+      document.getElementById("hedgeStatus").style.color = "var(--orange)";
+      addActivity("PRECOG: High risk ("+Math.round(risk)+"/100) - hedge triggered", "hedge");
+    } else if (risk > 35) {
+      assess = "MODERATE RISK: "+trend+" with "+vol.toFixed(1)+"% volatility. Reducing position sizes.";
+      action = "GHOST ACTION: Position sizes reduced 20%, watchlist active";
+      icon = "WATCH"; status = "Monitoring"; desc = "Watching closely";
+      document.getElementById("hedgeStatus").style.color = "var(--text)";
+      addActivity("PRECOG: Moderate risk ("+Math.round(risk)+"/100)", "precog");
     } else {
-      assessment="LOW RISK: "+trend+" conditions with "+volatility.toFixed(1)+"% volatility. Ghost executing yield strategies.";
-      action="GHOST ACTION: Yield farming active - Uniswap LP positions maintained";
-      icon="&#9989;";status="All Clear";desc="Executing strategy";
-      document.getElementById("hedgeStatus").style.color="var(--green)";
-      addActivity("PRECOG: Low risk ("+Math.round(riskScore)+"/100) - strategy running","precog");
+      assess = "LOW RISK: "+trend+" conditions, "+vol.toFixed(1)+"% volatility. Executing yield strategies.";
+      action = "GHOST ACTION: Yield farming active, Uniswap positions maintained";
+      icon = "CLEAR"; status = "All Clear"; desc = "Executing strategy";
+      document.getElementById("hedgeStatus").style.color = "var(--green)";
+      addActivity("PRECOG: Low risk ("+Math.round(risk)+"/100) - strategy running", "precog");
     }
-    document.getElementById("precogAssessment").textContent=assessment;
-    document.getElementById("precogAction").textContent=action;
-    document.getElementById("hedgeIcon").innerHTML=icon;
-    document.getElementById("hedgeStatus").textContent=status;
-    document.getElementById("hedgeDesc").textContent=desc;
-    const feed=document.getElementById("riskFeed");
-    const item=document.createElement("div");
-    item.className="activity-item";
-    item.innerHTML='<div class="activity-dot precog"></div><div class="activity-content"><div class="activity-title">'+assessment.substring(0,80)+'</div><div class="activity-meta">PRECOG &middot; OKX Onchain OS Market Data &middot; '+new Date().toLocaleTimeString()+'</div></div>';
-    feed.insertBefore(item,feed.firstChild);
-  },1500);
+    document.getElementById("pAssess").textContent = assess;
+    document.getElementById("pAction").textContent = action;
+    document.getElementById("hedgeIcon").textContent = icon;
+    document.getElementById("hedgeStatus").textContent = status;
+    document.getElementById("hedgeDesc").textContent = desc;
+    var feed = document.getElementById("riskFeed");
+    var item = document.createElement("div");
+    item.className = "activity-item";
+    item.innerHTML = '<div class="adot precog"></div><div class="a-content"><div class="a-title">'+assess+'</div><div class="a-meta">PRECOG &middot; OKX Onchain OS &middot; '+new Date().toLocaleTimeString()+'</div></div>';
+    feed.insertBefore(item, feed.firstChild);
+  }, 1500);
 }
 
-function loadMarketplace(){
-  const demos=[
-    {id:0,name:"NEXUS-7",risk:4,score:847,trades:234,winRate:71,pnl:"+18.4%",strategies:["arb","yield"],fee:0.5,rented:false},
-    {id:1,name:"SHADOW PROTOCOL",risk:2,score:923,trades:412,winRate:83,pnl:"+31.2%",strategies:["hedge","yield"],fee:1.0,rented:false},
-    {id:2,name:"ORACLE-X",risk:3,score:762,trades:189,winRate:68,pnl:"+14.7%",strategies:["dip-buy","rebalance"],fee:0.75,rented:false},
-    {id:3,name:"GHOST-ZERO",risk:5,score:634,trades:88,winRate:59,pnl:"+8.1%",strategies:["arb"],fee:0.25,rented:true},
-    {id:4,name:"ARCHITECT",risk:1,score:991,trades:612,winRate:91,pnl:"+44.8%",strategies:["yield","hedge","rebalance"],fee:2.0,rented:false},
-    {id:5,name:"PHANTOM-9",risk:3,score:701,trades:156,winRate:65,pnl:"+11.3%",strategies:["dip-buy","arb"],fee:0.5,rented:false}
+function loadMarketplace() {
+  var demos = [
+    {id:0,name:"NEXUS-7",risk:4,score:847,trades:234,wr:71,pnl:"+18.4%",strats:["arb","yield"],fee:0.5,rented:false},
+    {id:1,name:"SHADOW PROTOCOL",risk:2,score:923,trades:412,wr:83,pnl:"+31.2%",strats:["hedge","yield"],fee:1.0,rented:false},
+    {id:2,name:"ORACLE-X",risk:3,score:762,trades:189,wr:68,pnl:"+14.7%",strats:["dip-buy"],fee:0.75,rented:false},
+    {id:3,name:"GHOST-ZERO",risk:5,score:634,trades:88,wr:59,pnl:"+8.1%",strats:["arb"],fee:0.25,rented:true},
+    {id:4,name:"ARCHITECT",risk:1,score:991,trades:612,wr:91,pnl:"+44.8%",strats:["yield","hedge"],fee:2.0,rented:false},
+    {id:5,name:"PHANTOM-9",risk:3,score:701,trades:156,wr:65,pnl:"+11.3%",strats:["dip-buy","arb"],fee:0.5,rented:false}
   ];
-  const grid=document.getElementById("marketplaceGrid");
-  grid.innerHTML=demos.map(g=>{
-    const tags=g.strategies.map(s=>'<span class="ghost-tag '+s+'">'+s.toUpperCase()+'</span>').join("");
-    const sc=g.score>850?"var(--green)":g.score>700?"var(--cyan)":"var(--orange)";
-    return '<div class="ghost-card"><div class="ghost-card-header"><div><div class="ghost-card-name">'+g.name+'</div><div class="ghost-card-id">Ghost #'+g.id+' &middot; Risk '+g.risk+'/5</div></div><div class="ghost-score-badge" style="color:'+sc+'">'+g.score+'</div></div><div class="ghost-tags">'+tags+'</div><div class="ghost-card-stats"><div class="gc-stat"><div class="gc-stat-val up">'+g.pnl+'</div><div class="gc-stat-label">PnL</div></div><div class="gc-stat"><div class="gc-stat-val">'+g.winRate+'%</div><div class="gc-stat-label">Win Rate</div></div><div class="gc-stat"><div class="gc-stat-val">'+g.trades+'</div><div class="gc-stat-label">Trades</div></div></div><div class="ghost-rental-rate"><div><div class="rate-value">'+g.fee+' USDC<span style="color:var(--text-dim);font-size:10px">/hr</span></div><div style="font-family:var(--font-mono);font-size:9px;color:'+(!g.rented?"var(--green)":"var(--red)")+'">'+(!g.rented?"&#9679; AVAILABLE":"&#9679; OCCUPIED")+'</div></div><button class="btn-rent" onclick="openRentModal('+g.id+',&quot;'+g.name+'&quot;,'+g.fee+')" '+( g.rented?"disabled style=\'opacity:0.4\'"  :"")+'>Rent</button></div></div>';
-  }).join("");
+  var grid = document.getElementById("marketGrid");
+  var html = "";
+  for (var i = 0; i < demos.length; i++) {
+    var g = demos[i];
+    var sc = g.score>850?"var(--green)":g.score>700?"var(--cyan)":"var(--orange)";
+    var tags = "";
+    for (var j = 0; j < g.strats.length; j++) {
+      tags += '<span class="gc-tag '+g.strats[j]+'">'+g.strats[j].toUpperCase()+'</span>';
+    }
+    var avail = g.rented ? '<span style="color:var(--red)">OCCUPIED</span>' : '<span style="color:var(--green)">AVAILABLE</span>';
+    var rentBtn = g.rented ? '<button class="btn-rent" disabled style="opacity:0.4">Occupied</button>' : '<button class="btn-rent" onclick="openRent('+g.id+',''+g.name+'','+g.fee+')">Rent</button>';
+    html += '<div class="ghost-card">';
+    html += '<div class="gc-hdr"><div><div class="gc-name">'+g.name+'</div><div class="gc-id">Ghost #'+g.id+' &middot; Risk '+g.risk+'/5</div></div>';
+    html += '<div class="gc-score" style="color:'+sc+'">'+g.score+'</div></div>';
+    html += '<div class="gc-tags">'+tags+'</div>';
+    html += '<div class="gc-stats">';
+    html += '<div class="gcs"><div class="gcs-val up">'+g.pnl+'</div><div class="gcs-lbl">PnL</div></div>';
+    html += '<div class="gcs"><div class="gcs-val">'+g.wr+'%</div><div class="gcs-lbl">Win Rate</div></div>';
+    html += '<div class="gcs"><div class="gcs-val">'+g.trades+'</div><div class="gcs-lbl">Trades</div></div>';
+    html += '</div>';
+    html += '<div class="gc-rate"><div><div class="rate-val">'+g.fee+' USDC<span style="color:var(--text-dim);font-size:10px">/hr</span></div>'+avail+'</div>'+rentBtn+'</div>';
+    html += '</div>';
+  }
+  grid.innerHTML = html;
 }
 
-function openRentModal(ghostId,name,fee){
-  document.getElementById("rentModalTitle").textContent="Rent "+name;
-  document.getElementById("rentModalBody").innerHTML='<div style="margin-bottom:20px;padding:16px;background:var(--bg2);border:1px solid var(--border)"><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);line-height:2.2"><div>GHOST: <span style="color:#fff">'+name+' (#'+ghostId+')</span></div><div>RATE: <span style="color:var(--green)">'+fee+' USDC/hr</span></div><div>PAYMENT: <span style="color:var(--cyan)">x402 Protocol &middot; USDC &middot; X Layer</span></div><div>CONTRACT: <span style="color:var(--text-dim);font-size:9px">0x887832751aA690A2...</span></div></div></div><div class="form-group" style="margin-bottom:20px"><label>Hours to rent</label><input type="number" id="rentHours" value="1" min="1" max="168"/><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:6px">Total: <span id="rentTotal" style="color:var(--green)">'+fee+' USDC</span></div></div><button class="btn-primary" style="width:100%" onclick="executeRent('+ghostId+',&quot;'+name+'&quot;,'+fee+')">Pay &amp; Rent Ghost</button>';
-  document.getElementById("rentHours").addEventListener("input",function(){document.getElementById("rentTotal").textContent=(this.value*fee).toFixed(2)+" USDC";});
+function openRent(id, name, fee) {
+  document.getElementById("rentTitle").textContent = "Rent "+name;
+  document.getElementById("rentBody").innerHTML =
+    '<div style="margin-bottom:20px;padding:16px;background:var(--bg2);border:1px solid var(--border)">' +
+    '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);line-height:2.2">' +
+    '<div>GHOST: <span style="color:#fff">'+name+' (#'+id+')</span></div>' +
+    '<div>RATE: <span style="color:var(--green)">'+fee+' USDC / hour</span></div>' +
+    '<div>PAYMENT: <span style="color:var(--cyan)">x402 Protocol &middot; USDC &middot; X Layer</span></div>' +
+    '<div>CONTRACT: <span style="color:var(--text-dim);font-size:9px">'+RNT.slice(0,20)+'...</span></div>' +
+    '</div></div>' +
+    '<div class="fg" style="margin-bottom:20px"><label>Hours to rent</label>' +
+    '<input type="number" id="rentHrs" value="1" min="1" max="168"/>' +
+    '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-top:6px">Total: <span id="rentTotal" style="color:var(--green)">'+fee+' USDC</span></div></div>' +
+    '<button class="btn-primary" style="width:100%" onclick="doRent('+id+',''+name+'','+fee+')">Pay and Rent Ghost</button>';
+  document.getElementById("rentHrs").oninput = function() {
+    document.getElementById("rentTotal").textContent = (this.value * fee).toFixed(2)+" USDC";
+  };
   document.getElementById("rentModal").classList.add("open");
 }
 
-function closeModal(id){document.getElementById(id).classList.remove("open");}
-
-function executeRent(ghostId,name,fee){
-  const h=parseInt(document.getElementById("rentHours").value);
-  toast("Processing x402 payment: "+(h*fee).toFixed(2)+" USDC","info");
-  addActivity("Renting "+name+" for "+h+"h via x402 - "+(h*fee).toFixed(2)+" USDC","rent");
-  setTimeout(()=>{closeModal("rentModal");toast("Now renting "+name+" - Ghost active for "+h+"h!","success");addActivity("Rental active: "+name+" earning passively","rent");},1500);
+function doRent(id, name, fee) {
+  var h = parseInt(document.getElementById("rentHrs").value);
+  toast("Processing x402 payment: "+(h*fee).toFixed(2)+" USDC", "info");
+  addActivity("Renting "+name+" for "+h+"h via x402", "rent");
+  setTimeout(function() {
+    closeModal();
+    toast("Now renting "+name+" for "+h+"h!", "success");
+    addActivity("Rental active: "+name+" earning passively", "rent");
+  }, 1500);
 }
 
-function switchTab(tab){
-  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-  document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
-  document.getElementById("tab-"+tab)?.classList.add("active");
-  document.getElementById("panel-"+tab)?.classList.add("active");
-  if(tab==="marketplace") loadMarketplace();
-  if(tab==="precog") runPrecogNow();
+function closeModal() { document.getElementById("rentModal").classList.remove("open"); }
+
+function switchTab(tab) {
+  document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active");});
+  document.querySelectorAll(".tab-panel").forEach(function(p){p.classList.remove("active");});
+  var tb = document.getElementById("tab-"+tab);
+  var tp = document.getElementById("panel-"+tab);
+  if (tb) tb.classList.add("active");
+  if (tp) tp.classList.add("active");
+  if (tab === "marketplace") loadMarketplace();
+  if (tab === "precog") runPrecog();
 }
 
-function setRisk(level){
-  selectedRisk=level;
-  document.querySelectorAll(".risk-btn").forEach(b=>b.classList.remove("active"));
-  document.querySelector(\`.risk-btn[data-level="\${level}"]\`)?.classList.add("active");
-  document.getElementById("previewRisk").textContent="RISK: "+level;
+function setRisk(n) {
+  selRisk = n;
+  document.querySelectorAll(".risk-btn").forEach(function(b){b.classList.remove("active");});
+  var btn = document.querySelector(".risk-btn[data-r='"+n+"']");
+  if (btn) btn.classList.add("active");
+  var el = document.getElementById("prevRisk");
+  if (el) el.textContent = "RISK: "+n;
 }
 
-function toggleStrat(strat){
-  const idx=selectedStrategies.indexOf(strat);
-  if(idx>-1){selectedStrategies.splice(idx,1);document.querySelector(\`.strat-tag[data-strat="\${strat}"]\`)?.classList.remove("active");}
-  else{selectedStrategies.push(strat);document.querySelector(\`.strat-tag[data-strat="\${strat}"]\`)?.classList.add("active");}
+function toggleStrat(s) {
+  var idx = selStrats.indexOf(s);
+  var btn = document.querySelector(".strat-tag[data-s='"+s+"']");
+  if (idx > -1) { selStrats.splice(idx,1); if(btn) btn.classList.remove("active"); }
+  else { selStrats.push(s); if(btn) btn.classList.add("active"); }
 }
 
-document.getElementById("ghostName")?.addEventListener("input",function(){document.getElementById("previewName").textContent=this.value.toUpperCase()||"GHOST";});
+document.getElementById("ghostName").addEventListener("input", function() {
+  var el = document.getElementById("prevName");
+  if (el) el.textContent = (this.value.toUpperCase() || "GHOST");
+});
 
-function addActivity(msg,type="info"){
-  const feed=document.getElementById("activityFeed");
-  const item=document.createElement("div");
-  item.className="activity-item";
-  item.innerHTML='<div class="activity-dot '+type+'"></div><div class="activity-content"><div class="activity-title">'+msg+'</div><div class="activity-meta">X Layer &middot; OKX Onchain OS &middot; '+new Date().toLocaleTimeString()+'</div></div>';
-  feed.insertBefore(item,feed.firstChild);
-  if(feed.children.length>20) feed.removeChild(feed.lastChild);
+function addActivity(msg, type) {
+  if (!type) type = "info";
+  var feed = document.getElementById("activityFeed");
+  if (!feed) return;
+  var item = document.createElement("div");
+  item.className = "activity-item";
+  item.innerHTML = '<div class="adot '+type+'"></div><div class="a-content"><div class="a-title">'+msg+'</div><div class="a-meta">X Layer &middot; '+new Date().toLocaleTimeString()+'</div></div>';
+  feed.insertBefore(item, feed.firstChild);
+  while (feed.children.length > 20) feed.removeChild(feed.lastChild);
 }
 
-function toast(msg,type="info"){
-  const c=document.getElementById("toastContainer");
-  const t=document.createElement("div");
-  t.className="toast "+type;
-  const titles={success:"Success",error:"Error",warning:"Warning",info:"Info"};
-  t.innerHTML='<div class="toast-title">'+titles[type]+'</div>'+msg;
+function toast(msg, type) {
+  if (!type) type = "info";
+  var c = document.getElementById("toastWrap");
+  var t = document.createElement("div");
+  t.className = "toast "+type;
+  var titles = {success:"Success",error:"Error",warning:"Warning",info:"Info"};
+  t.innerHTML = '<div class="toast-title">'+(titles[type]||"Info")+'</div>'+msg;
   c.appendChild(t);
-  setTimeout(()=>{t.style.opacity="0";t.style.transition="opacity 0.5s";setTimeout(()=>t.remove(),500);},4000);
+  setTimeout(function(){t.style.opacity="0";t.style.transition="opacity 0.5s";setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},500);}, 4000);
 }
 
-function drawPnL(){
-  const canvas=document.getElementById("pnlCanvas");
-  if(!canvas) return;
-  const ctx=canvas.getContext("2d");
-  canvas.width=canvas.offsetWidth*2;canvas.height=160;
-  ctx.scale(2,1);
-  const w=canvas.offsetWidth,h=80;
-  const pts=[];let v=0;
-  for(let i=0;i<30;i++){v+=(Math.random()-0.38)*2;pts.push(v);}
-  const mn=Math.min(...pts),mx=Math.max(...pts),rng=mx-mn||1;
-  const grad=ctx.createLinearGradient(0,0,0,h);
-  grad.addColorStop(0,"rgba(0,229,255,0.2)");grad.addColorStop(1,"rgba(0,229,255,0)");
+function drawPnL() {
+  var canvas = document.getElementById("pnlCanvas");
+  if (!canvas) return;
+  var w = canvas.offsetWidth || 400;
+  canvas.width = w; canvas.height = 80;
+  var ctx = canvas.getContext("2d");
+  var pts = []; var v = 0;
+  for (var i = 0; i < 30; i++) { v += (Math.random()-0.38)*2; pts.push(v); }
+  var mn = Math.min.apply(null,pts), mx = Math.max.apply(null,pts), rng = mx-mn||1;
+  var grad = ctx.createLinearGradient(0,0,0,80);
+  grad.addColorStop(0,"rgba(0,229,255,0.2)"); grad.addColorStop(1,"rgba(0,229,255,0)");
   ctx.beginPath();
-  pts.forEach((p,i)=>{const x=(i/(pts.length-1))*w,y=h-((p-mn)/rng)*(h*0.8)-h*0.1;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
-  ctx.strokeStyle="rgba(0,229,255,0.8)";ctx.lineWidth=1.5;ctx.stroke();
-  ctx.lineTo(w,h);ctx.lineTo(0,h);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+  for (var i = 0; i < pts.length; i++) {
+    var x = (i/(pts.length-1))*w, y = 80-((pts[i]-mn)/rng)*64-8;
+    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle="rgba(0,229,255,0.8)"; ctx.lineWidth=1.5; ctx.stroke();
+  ctx.lineTo(w,80); ctx.lineTo(0,80); ctx.closePath();
+  ctx.fillStyle=grad; ctx.fill();
 }
 
-const glyphs=["GHOST","SCANNING","PRECOG","HEDGING","TRADING","LEARNING"];
-let gi=0;
-setInterval(()=>{gi=(gi+1)%glyphs.length;const el=document.getElementById("orbGlyph");if(el)el.textContent=glyphs[gi];},3000);
+var glyphs = ["GHOST","SCANNING","PRECOG","HEDGING","TRADING","LEARNING"];
+var gi = 0;
+setInterval(function(){gi=(gi+1)%glyphs.length;var el=document.getElementById("orbGlyph");if(el)el.textContent=glyphs[gi];}, 3000);
 
-const demoActs=[
+var demoActs = [
   ["PRECOG: Low risk environment on X Layer","precog"],
   ["OKX DEX Swap: 12 USDC to WOKB via Uniswap","trade"],
-  ["Reputation updated +3pts (ERC-8183 on-chain)","info"],
-  ["Market data: okx-dex-market (500+ DEXs)","info"],
+  ["Reputation updated +3pts (ERC-8183)","info"],
+  ["Market data pulled: okx-dex-market (500+ DEXs)","info"],
   ["PRECOG: Volatility spike detected - monitoring","hedge"],
   ["Portfolio rebalanced: 60/40 USDC/OKB","trade"],
   ["Rental income: 0.5 USDC received (x402)","rent"]
 ];
-let dai=0;
-setInterval(()=>{if(dai<demoActs.length){addActivity(demoActs[dai][0],demoActs[dai][1]);dai++;}},8000);
+var dai = 0;
+setInterval(function(){if(dai<demoActs.length){addActivity(demoActs[dai][0],demoActs[dai][1]);dai++;}}, 8000);
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", function() {
   loadMarketplace();
-  drawPnL();
-  if(window.ethereum){window.ethereum.request({method:"eth_accounts"}).then(a=>{if(a.length>0)connectWallet();});}
+  setTimeout(drawPnL, 100);
+  if (window.ethereum) {
+    window.ethereum.request({method:"eth_accounts"}).then(function(a){if(a&&a.length>0)connectWallet();}).catch(function(){});
+  }
 });
 </script>
 </body>
