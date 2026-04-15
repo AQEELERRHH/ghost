@@ -578,22 +578,33 @@ function loadMarketplace() {
 }
 
 function openRent(id, name, fee) {
-  document.getElementById("rentTitle").textContent = "Rent "+name;
+  document.getElementById("rentTitle").textContent = "Rent " + name;
+
   document.getElementById("rentBody").innerHTML =
     '<div style="margin-bottom:20px;padding:16px;background:var(--bg2);border:1px solid var(--border)">' +
-    '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);line-height:2.2">' +
-    '<div>GHOST: <span style="color:#fff">'+name+' (#'+id+')</span></div>' +
-    '<div>RATE: <span style="color:var(--green)">'+fee+' USDC / hour</span></div>' +
-    '<div>PAYMENT: <span style="color:var(--cyan)">x402 Protocol &middot; USDC &middot; X Layer</span></div>' +
-    '<div>CONTRACT: <span style="color:var(--text-dim);font-size:9px">'+RNT.slice(0,20)+'...</span></div>' +
-    '</div></div>' +
-    '<div class="fg" style="margin-bottom:20px"><label>Hours to rent</label>' +
-    '<input type="number" id="rentHrs" value="1" min="1" max="168"/>' +
-    '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-top:6px">Total: <span id="rentTotal" style="color:var(--green)">'+fee+' USDC</span></div></div>' +
-  var rentBtn = g.rented ? '<button class="btn-rent" disabled style="opacity:0.4">Occupied</button>' : '<button class="btn-rent" onclick="openRent(' + g.id + ',this.dataset.name,' + g.fee + ')" data-name="' + g.name + '">Rent</button>';
+      '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);line-height:2.2">' +
+        '<div>GHOST: <span style="color:#fff">' + name + ' (#' + id + ')</span></div>' +
+        '<div>RATE: <span style="color:var(--green)">' + fee + ' USDC / hour</span></div>' +
+        '<div>PAYMENT: <span style="color:var(--cyan)">x402 Protocol &middot; USDC &middot; X Layer</span></div>' +
+        '<div>CONTRACT: <span style="color:var(--text-dim);font-size:9px">' + RNT.slice(0,20) + '...</span></div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="fg" style="margin-bottom:20px">' +
+      '<label>Hours to rent</label>' +
+      '<input type="number" id="rentHrs" value="1" min="1" max="168"/>' +
+      '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-top:6px">' +
+        'Total: <span id="rentTotal" style="color:var(--green)">' + fee + ' USDC</span>' +
+      '</div>' +
+    '</div>' +
+
+    '<button class="btn-primary" style="width:100%" onclick="doRent(' + id + ', \'' + name + '\', ' + fee + ')">Pay and Rent Ghost</button>';
+
   document.getElementById("rentHrs").oninput = function() {
-    document.getElementById("rentTotal").textContent = (this.value * fee).toFixed(2)+" USDC";
+    document.getElementById("rentTotal").textContent =
+      (this.value * fee).toFixed(2) + " USDC";
   };
+
   document.getElementById("rentModal").classList.add("open");
 }
 
