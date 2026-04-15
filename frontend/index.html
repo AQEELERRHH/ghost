@@ -561,7 +561,7 @@ function loadMarketplace() {
       tags += '<span class="gc-tag '+g.strats[j]+'">'+g.strats[j].toUpperCase()+'</span>';
     }
     var avail = g.rented ? '<span style="color:var(--red)">OCCUPIED</span>' : '<span style="color:var(--green)">AVAILABLE</span>';
-    var rentBtn = g.rented ? '<button class="btn-rent" disabled style="opacity:0.4">Occupied</button>' : '<button class="btn-rent" onclick="openRent('+g.id+',''+g.name+'','+g.fee+')">Rent</button>';
+    var rentBtn = g.rented ? '<button class="btn-rent" disabled style="opacity:0.4">Occupied</button>' : '<button class="btn-rent" onclick="openRent('+g.id+',&quot;'+g.name+'&quot;,'+g.fee+')">Rent</button>';
     html += '<div class="ghost-card">';
     html += '<div class="gc-hdr"><div><div class="gc-name">'+g.name+'</div><div class="gc-id">Ghost #'+g.id+' &middot; Risk '+g.risk+'/5</div></div>';
     html += '<div class="gc-score" style="color:'+sc+'">'+g.score+'</div></div>';
