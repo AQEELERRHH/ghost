@@ -590,7 +590,7 @@ function openRent(id, name, fee) {
     '<div class="fg" style="margin-bottom:20px"><label>Hours to rent</label>' +
     '<input type="number" id="rentHrs" value="1" min="1" max="168"/>' +
     '<div style="font-family:var(--ff-mono);font-size:10px;color:var(--text-dim);margin-top:6px">Total: <span id="rentTotal" style="color:var(--green)">'+fee+' USDC</span></div></div>' +
-    '<button class="btn-primary" style="width:100%" onclick="doRent('+id+',''+name+'','+fee+')">Pay and Rent Ghost</button>';
+  var rentBtn = g.rented ? '<button class="btn-rent" disabled style="opacity:0.4">Occupied</button>' : '<button class="btn-rent" onclick="openRent(' + g.id + ',this.dataset.name,' + g.fee + ')" data-name="' + g.name + '">Rent</button>';
   document.getElementById("rentHrs").oninput = function() {
     document.getElementById("rentTotal").textContent = (this.value * fee).toFixed(2)+" USDC";
   };
